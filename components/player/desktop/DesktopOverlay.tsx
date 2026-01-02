@@ -6,6 +6,7 @@ import { DesktopSpeedMenu } from './DesktopSpeedMenu';
 
 interface DesktopOverlayProps {
     isLoading: boolean;
+    isTransitioningToNextEpisode?: boolean;
     isPlaying: boolean;
     showSkipForwardIndicator: boolean;
     showSkipBackwardIndicator: boolean;
@@ -38,6 +39,7 @@ interface DesktopOverlayProps {
 
 export function DesktopOverlay({
     isLoading,
+    isTransitioningToNextEpisode = false,
     isPlaying,
     showSkipForwardIndicator,
     showSkipBackwardIndicator,
@@ -101,7 +103,14 @@ export function DesktopOverlay({
             {/* Loading Spinner - Glass Effect */}
             {isLoading && (
                 <div className="loading-overlay-glass">
-                    <div className="spinner-glass"></div>
+                    {isTransitioningToNextEpisode ? (
+                        <div className="next-episode-loading">
+                            <div className="spinner-glass"></div>
+                            <span className="next-episode-text">正在自动播放下一集...</span>
+                        </div>
+                    ) : (
+                        <div className="spinner-glass"></div>
+                    )}
                 </div>
             )}
 
